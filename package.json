@@ -1,0 +1,66 @@
+{
+  "name": "tzina",
+  "version": "1.0.0",
+  "description": "Tzina Experience",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo src/index.js:bundle.js -- -t [ babelify --presets [ es2015  ]  ] -t [ glslify  ] -t [ browserify-shim  ]"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avnerus/tzina.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Avnerus/tzina/issues"
+  },
+  "homepage": "https://github.com/Avnerus/tzina#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.5.0",
+    "babelify": "^7.2.0",
+    "beefy": ">=0.7.1",
+    "browserify": ">=3.20.0",
+    "browserify-shim": "^3.8.10",
+    "glslify": "^2.3.1"
+  },
+  "window": {
+    "title": "Tzina",
+    "toolbar": false,
+    "frame": false,
+    "width": 1920,
+    "height": 1080,
+    "position": "mouse",
+    "fullscreen": true
+  },
+  "dependencies": {
+    "box-intersect": "^1.0.1",
+    "core-js": "^2.4.0",
+    "earcut": "^2.1.1",
+    "easing-utils": "0.0.5",
+    "fullscreen": "^1.0.2",
+    "gl-shader": "^4.2.0",
+    "glsl-curl-noise": "0.0.4",
+    "glsl-random": "0.0.5",
+    "jquery-browserify": "^1.8.1",
+    "jquery-mousewheel": "^3.1.13",
+    "lodash": "^4.14.0",
+    "pointer-lock": "git+https://github.com/bunnybones1/pointer-lock-chrome-tolerant.git",
+    "stats.js": "^0.16.0"
+  },
+  "browserify": {
+    "transform": [
+      "glslify",
+      "browserify-shim",
+      "babelify"
+    ]
+  },
+  "browserify-shim": {
+    "three": "global:THREE"
+  },
+  "babelify": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}
