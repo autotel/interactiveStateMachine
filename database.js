@@ -1,18 +1,48 @@
 var loopsDatabase=[
   {
     // "name":"scorpio 01",
-    "source":"audio/scorpio-01.wav",
-    "bpm":119
+    "source":"loopmaker/hyperOpenBassTexture.wav",
+    "bpm":80
+  },
+  {
+    // "name":"scorpio 01",
+    "source":"loopmaker/renders/wetClaps.wav",
+    "bpm":80
+  },
+  {
+    // "name":"scorpio 01",
+    "source":"loopmaker/renders/wetClosedHh.wav",
+    "bpm":80
+  },
+  {
+    // "name":"scorpio 01",
+    "source":"loopmaker/renders/wetClunk.wav",
+    "bpm":80
+  },
+  {
+    // "name":"scorpio 01",
+    "source":"loopmaker/renders/wetkick.wav",
+    "bpm":80
+  },
+  {
+    // "name":"scorpio 01",
+    "source":"loopmaker/renders/wetOpenHh.wav",
+    "bpm":80
   },
   {
     // "name":"scorpio 02",
-    "source":"audio/scorpio-02.wav",
-    "bpm":119
+    "source":"loopmaker/renders/wetToms.wav",
+    "bpm":80
   },
   {
     // "name":"scorpio 02",
-    "source":"audio/scorpio-03.wav",
-    "bpm":119
+    "source":"loopmaker/renders/wetTomslow.wav",
+    "bpm":80
+  },
+  {
+    // "name":"scorpio 02",
+    "source":"loopmaker/renders/wetTopPercpatt.wav",
+    "bpm":80
   },
   {
     // "name":"scorpio 02",

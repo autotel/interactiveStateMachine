@@ -1,4 +1,24 @@
 looperManager=(function(){
+  var loadingListener=new(function(){
+    //should be a list. currently is just a counter
+    var parent=this;
+    var waitlist=0;
+    var exports={};
+    onHandlers.call(this);
+    this.enqueueLoad=function(who){
+      console.log("..");
+      waitlist++;
+    }
+    this.ready=function(who){
+      console.log(waitlist);
+      waitlist--;
+      if(waitlist==0){
+        console.log("loading samples ready");
+        parent.handle("ready");
+      }
+    }
+    return this;
+  })();
   var dynaconsole= document.getElementById("dynamicConsole");
   var exports={};
   var loop;
@@ -7,14 +27,15 @@ looperManager=(function(){
   var sequencers=[];
   transportStart=function(){
     this.beatCalls=[
-      function(){
-        dynaconsole.innerHTML=("<pre>"+beatCalls.length+"</pre>"+this.lastBeatTime);
-      }
+      // function(){
+      //   dynaconsole.innerHTML=("<pre>"+beatCalls.length+"</pre>"+this.lastBeatTime);
+      // }
     ];
     Tone.Transport.scheduleRepeat (function(time){
       for(var n in sequencers){
         try{
           sequencers[n].step({time:time,step:transportCurrentStep});
+
         }catch(e){
           console.log(e);
           console.warn("at step "+transportCurrentStep%sequencers[n].length+" of sequencer "+n);
@@ -23,8 +44,9 @@ looperManager=(function(){
       transportCurrentStep++;
     }, "32n");
     Tone.Transport.start();
-    Tone.Transport.bpm.value = 120;
+    Tone.Transport.bpm.value = 80;
     this.onBeat=function(call){
+      console.log("Stp");
       handlern=beatCalls.push(call);
       return beatCalls[handlern-1];
     }
@@ -33,8 +55,9 @@ looperManager=(function(){
     }
     return this;
   };
-
-  globalTransport=transportStart();
+  // loadingListener.on("ready",function(){
+    globalTransport=transportStart();
+  // });
   Sequencer=function(){
     sequencers.push(this);
     this.length=92;
@@ -81,7 +104,7 @@ looperManager=(function(){
           parent.engine.playbackRate=(parent.playbackRate)*value;
         };
       }).toMaster();
-      this.engine.loop=true;
+      this.engine.loop=false;
       this.engine.retrigger=false;
     }else{
       console.log("sorry, databaseItem didnt specify a source ",databaseItem);
@@ -116,33 +139,38 @@ looperManager=(function(){
   }
   var Syntha=function(){}
 
+  loadingListener.enqueueLoad(0);
+  loadingListener.enqueueLoad(1);
+  loadingListener.enqueueLoad(2);
+  loadingListener.enqueueLoad(3);
+
   var instruments={
     sampler0:new Sampler({
-      // "name":"scorpio 01",
-      "source":"audio/scorpio-01.wav",
-      "bpm":119
-    }),
+      // "name":"scorpio 02",
+      "source":"loopmaker/renders/wetToms.wav",
+      "bpm":80
+    },loadingListener.ready),
     sampler1:new Sampler({
-      // "name":"scorpio 01",
-      "source":"audio/scorpio-01.wav",
-      "bpm":119
-    }),
+      // "name":"scorpio 02",
+      "source":"loopmaker/renders/wetTomslow.wav",
+      "bpm":80
+    },loadingListener.ready),
     sampler2:new Sampler({
       // "name":"scorpio 01",
-      "source":"audio/scorpio-01.wav",
-      "bpm":119
-    }),
+      "source":"loopmaker/renders/wetClosedHh.wav",
+      "bpm":80
+    },loadingListener.ready),
     sampler3:new Sampler({
       // "name":"scorpio 01",
-      "source":"audio/scorpio-01.wav",
-      "bpm":119
-    }),
+      "source":"loopmaker/renders/wetClaps.wav",
+      "bpm":80
+    },loadingListener.ready),
     perc0:new Perca(),
     perc1:new Perca(),
     perc2:new Percb(),
     perc3:new Percb()
-
   };
+
   new Sequencer();
   new Sequencer();
   new Sequencer();
@@ -153,5 +181,6 @@ looperManager=(function(){
   exports.tweak=function(callback){
     callback(instruments,sequencers);
   }
+
   return exports;
 })()
